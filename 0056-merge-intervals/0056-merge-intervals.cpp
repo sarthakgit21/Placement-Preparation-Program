@@ -1,33 +1,17 @@
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& A) {
-               map<int,int>m;
-        for(auto i: A)
-        {
-            m[i[0]]++;
-            m[i[1]]--;
-        }
-        vector<vector<int>>ans;
-        int prev,preSum=0;
-        bool isprev=0;
-        for(auto i: m)
-        {
-            if(!isprev)
-            {
-                prev=i.first;
-                isprev=1;
+        sort(A.begin(),A.end());
+        vector<vector<int>> ans;
+        ans.push_back(A[0]);
+        for(int i=0;i<A.size();i++){
+            if(ans.back()[1]>=A[i][0]){
+                ans.back()[1]=max(ans.back()[1],A[i][1]);
             }
-            preSum+=i.second;
-            if(preSum==0)
-            {
-                vector<int>I(2);
-                I[0]=prev;
-                I[1]=i.first;
-                ans.push_back(I);
-                isprev=0;
+            else{
+                ans.push_back(A[i]);
             }
         }
-
         return ans;
     }
 };
