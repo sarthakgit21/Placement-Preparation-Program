@@ -12,6 +12,7 @@ public:
             j=i+1;
             int k=n-1;
             while(j<k){
+                if(j>i+1&&nums[j-1]==nums[j]) {j++;continue;}
                 long sum=nums[i]+nums[j];
                 sum+=nums[k];
                 if(sum==0){
