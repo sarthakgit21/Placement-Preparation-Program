@@ -17,21 +17,43 @@ public:
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        map<Node*,Node*>mp;
-        Node*tempHead=head;
-        while(tempHead){
-            Node* nex=new Node(tempHead->val);
-            mp[tempHead]=nex;
-            tempHead=tempHead->next;
+        if(!head) return head;
+        Node* temp=head;
+        Node* temp2=head->next;
+        while(temp){
+            Node * nexnew=new Node(temp->val);
+            // cout<<temp->val<<" "<<nexnew->val;
+            temp->next=nexnew;
+            nexnew->next=temp2;
+            temp=temp2;
+            if(temp2==NULL) break;
+            temp2=temp2->next;
         }
-        tempHead=head;
-        while(tempHead){
-            auto it=mp[tempHead];
-            it->next=mp[tempHead->next];
-            it->random=mp.count(tempHead->random)?mp[tempHead->random]:NULL;
-            tempHead=tempHead->next;
-        }
-        return mp[head];
         
+        temp=head;
+        while(temp){
+            temp->next->random=temp->random==NULL?NULL:temp->random->next;
+            temp=temp->next->next;
+        }
+        
+
+        temp=head;
+        
+        temp2=head->next->next;
+        Node* newHead=new Node(0);
+        Node* ans=newHead;
+        while(temp2){
+            newHead->next=temp->next;
+            temp->next=temp2;
+            temp=temp2;
+            newHead=newHead->next;
+            temp2=temp2->next->next;
+        }
+        newHead->next=temp->next;
+        temp->next=temp2;
+        temp=temp2;
+        newHead->next->next=temp2;
+ 
+        return ans->next;
     }
 };
