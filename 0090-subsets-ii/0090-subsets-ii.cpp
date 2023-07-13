@@ -1,22 +1,24 @@
 class Solution {
 public:
-void fun(vector<int> &nums,set<vector<int>> &s,int ind,vector<int>& c){                                 s.insert(c);
+void fun(vector<int> &nums,vector<vector<int>> &ans,int ind,vector<int>& c){                                 ans.push_back(c);
         for(int i=ind-1;i>=0;i--){
+            if(i!=ind-1&&nums[i]==nums[i+1]) continue;
             c.push_back(nums[i]);
-            fun(nums,s,i,c);
+            fun(nums,ans,i,c);
             c.pop_back();
         }
-        // return;
+        return;
         
     }
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
         set<vector<int>> s;
         int n=nums.size();
+          vector<vector<int>> ans;
         vector<int> c;
         sort(nums.begin(),nums.end());
-        fun(nums,s,n,c);
+        fun(nums,ans,n,c);
         // cout<<s.size();
-        vector<vector<int>> ans(s.begin(),s.end());
+      
         return ans;
     }
 };
