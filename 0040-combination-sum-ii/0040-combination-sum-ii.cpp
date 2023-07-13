@@ -5,15 +5,13 @@ public:
             ans.push_back(ds);
             return;
         }
-        if(ind>=candidates.size()) return;
+        // if(ind>=candidates.size()) return;
         for(int i=ind;i<candidates.size();i++){
             if((i!=ind&&candidates[i]==candidates[i-1])) continue;
-            if(candidates[i]<=target){
+            if(candidates[i]>target){break;}
             ds.push_back(candidates[i]);
             recur(candidates,target-candidates[i],i+1 ,ds,ans);
             ds.pop_back();
-            }
-            
         }
     }
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
